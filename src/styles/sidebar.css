@@ -1,0 +1,21 @@
+.sidebar {
+	height: 100%;
+	top: var(--height);
+	left: 0;
+	overflow: hidden;
+	padding: 1rem;
+	position: fixed;
+	flex: 1;
+	z-index: 0;
+
+	.heading {
+		flex: 1;
+		background: #fff;
+		border-bottom: 1px solid #eee;
+		padding: 0 10px;
+
+		h1 {
+			font-size: 1.8em;
+		}
+	}
+}

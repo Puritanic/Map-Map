@@ -1,0 +1,98 @@
+export const parks = [
+	{
+		name: 'Acadia',
+		lat: 44.338974,
+		lng: -68.27343,
+		placeId: 'ChIJJSmiDrKjrkwRhFVV_A4i32I',
+	},
+	{
+		name: 'Arches',
+		lat: 38.7331,
+		lng: -109.5925,
+		placeId: 'ChIJUaoNhhr2yoARlcQo0WnqQk8',
+	},
+	{
+		name: 'Cuyahoga Valley',
+		lat: 41.2808,
+		lng: -81.5678,
+		placeId: 'ChIJdfUpIkjeMIgRquWefEq-yco',
+	},
+	{
+		name: 'Glacier',
+		lat: 48.7596,
+		lng: -113.787,
+		placeId: 'ChIJVVVVVRWQaFMR7F3FFSK8Fq8',
+	},
+	{
+		name: 'Grand Canyon',
+		lat: 36.107,
+		lng: -112.113,
+		placeId: 'ChIJFU2bda4SM4cRKSCRyb6pOB8',
+	},
+	{
+		name: 'Grand Teton',
+		lat: 43.7904,
+		lng: -110.6818,
+		placeId: 'ChIJqRtdyZ5RUlMRN6ORzI64oKU',
+	},
+	{
+		name: 'Crater Lake',
+		lat: 42.8684,
+		lng: -122.1685,
+		placeId: 'ChIJOePlQAgXxlQRo-MvReHyK5A',
+	},
+	{
+		name: 'Jumbo Rocks',
+		lat: 33.9919,
+		lng: -116.0624,
+		placeId: 'ChIJb5lrTz7r2oARtaMw0aNjGk4',
+	},
+	{
+		name: 'North Rim',
+		lat: 36.2095,
+		lng: -112.0602,
+		placeId: 'ChIJ______9wM4cRACYdif5iXgc',
+	},
+	{
+		name: 'Death Valley',
+		lat: 36.5323,
+		lng: -116.9325,
+		placeId: 'ChIJR4qudndLx4ARVLDye3zwycw',
+	},
+	{
+		name: 'White River',
+		lat: 46.88,
+		lng: -121.7269,
+		placeId: 'ChIJTWzxW1KMsIARR20ZmCo3lwU',
+	},
+	{
+		name: 'Assateague Island National Seashore',
+		lat: 38.0608,
+		lng: -75.2362,
+		placeId: 'ChIJEeN2XRA_uYkRbqZj_I1AySY',
+	},
+	{
+		name: 'Chisos Basin',
+		lat: 29.276,
+		lng: -103.3024,
+		placeId: 'ChIJHSSRefEQ8oYRrT0BuvVpy6w',
+	},
+	{
+		name: 'Watchman',
+		lat: 37.1979,
+		lng: -112.9864,
+		placeId: 'ChIJ_03q_7zCyoARbXFXaKr7xfQ',
+	},
+	{
+		name: 'Jedediah Smith Redwoods',
+		lat: 41.7955,
+		lng: -124.1047,
+		placeId: 'ChIJFxRawo7_01QRZObfFW-g7EE',
+	},
+	{
+		name: 'Yosemite',
+		lat: 37.8651,
+		lng: -119.5383,
+		placeId: 'ChIJ41IqMUH6loARzXdWQwR2YIY',
+	},
+];

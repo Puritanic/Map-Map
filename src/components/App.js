@@ -12,12 +12,14 @@ class App extends Component {
 	render() {
 		return (
 			<Router className="App">
-				<Switch>
-					<Route exact path="/" component={Home} />
-					<Route path="/map" component={MapContainer} />
-					<Route path="/favorites" component={Favorites} />
-					<Redirect from="*" to="/" />
-				</Switch>
+				<React.Fragment>
+					<Home />
+					<Switch>
+						<Route path="/map" component={MapContainer} />
+						<Route path="/favorites" component={Favorites} />
+						<Redirect from="*" to="/" />
+					</Switch>
+				</React.Fragment>
 			</Router>
 		);
 	}

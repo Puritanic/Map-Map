@@ -3,34 +3,43 @@ import PropTypes from 'prop-types';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
 import { parks } from '../../fixtures';
+import PlaceDetails from '../Place/PlaceDetails';
+import Portal from '../Portal/Portal';
 
 export class MapContainer extends React.Component {
 	state = {
 		parks,
 		google: PropTypes.shape({}),
+		place: {},
+		isPortalVisible: false,
 	};
 
-	onMouseoverMarker(props, marker, e) {
-		console.log({ props, marker, e });
-		const { google, map } = props;
-		let service = new google.maps.places.PlacesService(map);
-
-		console.log({ service });
-		console.log(
-			service.getDetails(
-				{
-					placeId: 'ChIJxbVfgaQfTlMRa-n8WQ9rYlU',
-				},
-				(place, status) => {
-					console.log(status);
-					console.log(place);
-				}
-			)
-		);
+	static getDerivedStateFromProps(nextProps, prevState) {
+		console.log(nextProps);
 	}
+
+	onClickMarker = (props, marker, e) => {
+		console.log({ props, marker, e });
+		const { google, map, placeID } = props;
+
+		let service = new google.maps.places.PlacesService(map);
+		return service.getDetails(
+			{
+				placeId: placeID,
+			},
+			(place, status) => {
+				console.log(place);
+				this.setState({ place, isPortalVisible: true });
+			}
+		);
+	};
+
+	closePortal = () => this.setState({ isPortalVisible: false });
 
 	render() {
 		const { google } = this.props;
+
+		console.log(this.state);
 
 		const style = {
 			width: '100%',
@@ -42,23 +51,31 @@ export class MapContainer extends React.Component {
 		};
 
 		return (
-			<Map
-				google={google}
-				zoom={6}
-				style={style}
-				className="wrapper"
-				initialCenter={somewhereInWyoming}
-			>
-				{this.state.parks.map(park => (
-					<Marker
-						key={park.id}
-						title={park.name}
-						name={'SOMA'}
-						position={{ lat: park.lat, lng: park.lng }}
-						onMouseover={this.onMouseoverMarker}
-					/>
-				))}
-			</Map>
+			<React.Fragment>
+				{this.state.isPortalVisible && (
+					<Portal>
+						<PlaceDetails place={this.state.place} closeCallback={this.closePortal} />
+					</Portal>
+				)}
+				<Map
+					google={google}
+					zoom={6}
+					style={style}
+					className="wrapper"
+					initialCenter={somewhereInWyoming}
+				>
+					{this.state.parks.map(park => (
+						<Marker
+							key={park.placeId}
+							placeID={park.placeId}
+							title={park.name}
+							name={'SOMA'}
+							position={{ lat: park.lat, lng: park.lng }}
+							onClick={this.onClickMarker}
+						/>
+					))}
+				</Map>
+			</React.Fragment>
 		);
 	}
 }

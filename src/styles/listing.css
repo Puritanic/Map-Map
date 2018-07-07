@@ -1,11 +1,18 @@
-.listing-container {
-	height: 100%;
-	overflow: auto;
-	padding-bottom: 60px;
-	margin: 0;
+.list {
+	position: fixed;
+	width: 30%;
+	margin-top: var(--height);
+	height: 100vh;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: #fff;
+	padding: 3rem;
+	overflow-y: scroll;
+	padding-bottom: 7rem;
 }
 
-.item {
+.listItem {
 	display: flex;
 	flex-direction: row;
 	border-bottom: 1px solid #eeeeee;

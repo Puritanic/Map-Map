@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 
 import Rating from '../Rating/Rating';
 
-const Item = props => {
+const ListItem = props => {
 	const { place } = props;
 	return (
-		<div className="item">
-			<h1 className={'item__title'}>{place.name}</h1>
-			<Rating className={'item__rating'} percentage={place.rating / 5} />
+		<div className="listItem">
+			<h1 className={'listItem__title'}>{place.name}</h1>
+			<Rating className={'listItem__rating'} percentage={place.rating / 5} />
 		</div>
 	);
 };
 
-Item.propTypes = {
+ListItem.propTypes = {
 	place: PropTypes.shape({
 		placeId: PropTypes.string,
 		name: PropTypes.string,
@@ -21,4 +21,4 @@ Item.propTypes = {
 	}),
 };
 
-export default Item;
+export default ListItem;

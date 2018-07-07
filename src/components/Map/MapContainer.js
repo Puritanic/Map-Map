@@ -5,6 +5,7 @@ import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { parks } from '../../fixtures';
 import PlaceDetails from '../Place/PlaceDetails';
 import Portal from '../Portal/Portal';
+import List from '../List/List';
 
 export class MapContainer extends React.Component {
 	state = {
@@ -12,6 +13,7 @@ export class MapContainer extends React.Component {
 		google: PropTypes.shape({}),
 		place: {},
 		isPortalVisible: false,
+		isListVisible: false,
 	};
 
 	static getDerivedStateFromProps(nextProps, prevState) {
@@ -55,6 +57,11 @@ export class MapContainer extends React.Component {
 				{this.state.isPortalVisible && (
 					<Portal>
 						<PlaceDetails place={this.state.place} closeCallback={this.closePortal} />
+					</Portal>
+				)}
+				{this.state.isPortalVisible && (
+					<Portal>
+						<List places={parks} closeCallback={this.closePortal} />
 					</Portal>
 				)}
 				<Map

@@ -12,7 +12,7 @@ const List = props => {
 
 	const fetchDetails = id => {
 		props.fetchPlaceDetails(props.google, props.map, id);
-		props.showPlace();
+		props.showPlace(id);
 	};
 
 	return (

@@ -35,6 +35,7 @@ export class MapContainer extends React.Component {
 	state = {
 		isPortalVisible: false,
 		mapInstance: {},
+		selectedPlace: null,
 	};
 
 	componentDidMount = () => {
@@ -48,12 +49,12 @@ export class MapContainer extends React.Component {
 	onClickMarker = (props, marker, e) => {
 		const { google, map, placeID } = props;
 		this.props.fetchPlaceDetails(google, map, placeID);
-		this.setState({ isPortalVisible: true });
+		this.setState({ isPortalVisible: true, selectedPlace: placeID });
 	};
 
-	closePortal = () => this.setState({ isPortalVisible: false });
+	closePortal = () => this.setState({ isPortalVisible: false, selectedPlace: null });
 
-	openPortal = () => this.setState({ isPortalVisible: true });
+	openPortal = placeID => this.setState({ isPortalVisible: true, selectedPlace: placeID });
 
 	onReady = (mapProps, map) => {
 		this.setState({ mapInstance: map });
@@ -64,6 +65,7 @@ export class MapContainer extends React.Component {
 		const style = {
 			width: '100%',
 			height: '100%',
+			background: '#aadaff',
 		};
 		const somewhereInWyoming = {
 			lat: 42.55005,
@@ -99,6 +101,7 @@ export class MapContainer extends React.Component {
 					className="wrapper"
 					initialCenter={somewhereInWyoming}
 					onReady={this.onReady}
+					role="application"
 				>
 					{this.props.parks.data &&
 						this.props.parks.data.map(park => (
@@ -108,6 +111,11 @@ export class MapContainer extends React.Component {
 								title={park.name}
 								position={{ lat: park.lat, lng: park.lng }}
 								onClick={this.onClickMarker}
+								animation={
+									this.state.selectedPlace === park.placeId
+										? google.maps.Animation.BOUNCE
+										: null
+								}
 							/>
 						))}
 				</Map>

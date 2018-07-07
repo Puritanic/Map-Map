@@ -1,6 +1,6 @@
 .list {
 	position: fixed;
-	width: 30%;
+	width: 40%;
 	margin-top: var(--height);
 	height: 100vh;
 	right: 0;
@@ -21,9 +21,10 @@
 
 	&__title {
 		display: inline-block;
+		font-size: 1.3rem;
 
 		&:hover {
-			color: $highlight;
+			color: var(--font-color-mid);
 		}
 	}
 

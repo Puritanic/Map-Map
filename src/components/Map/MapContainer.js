@@ -2,12 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { GridLoader } from 'react-spinners';
 
 import PlaceDetails from '../Place/PlaceDetails';
 import Portal from '../Portal/Portal';
 import List from '../List/List';
 
 import { fetchParks, fetchPlaceDetails } from '../../actions/parks';
+
+const Spinner = () => (
+	<GridLoader className="centered--abs " color="#f44336" margin="5px" size={50} />
+);
 
 export class MapContainer extends React.Component {
 	static propTypes = {
@@ -29,6 +34,7 @@ export class MapContainer extends React.Component {
 
 	state = {
 		isPortalVisible: false,
+		mapInstance: {},
 	};
 
 	componentDidMount = () => {
@@ -47,9 +53,14 @@ export class MapContainer extends React.Component {
 
 	closePortal = () => this.setState({ isPortalVisible: false });
 
+	openPortal = () => this.setState({ isPortalVisible: true });
+
+	onReady = (mapProps, map) => {
+		this.setState({ mapInstance: map });
+	};
+
 	render() {
 		const { google } = this.props;
-
 		const style = {
 			width: '100%',
 			height: '100%',
@@ -72,7 +83,13 @@ export class MapContainer extends React.Component {
 				)}
 				{this.props.list.isListOpen && (
 					<Portal>
-						<List places={this.props.parks.data} closeCallback={this.closePortal} />
+						<List
+							places={this.props.parks.data}
+							showPlace={this.openPortal}
+							closeCallback={this.closePortal}
+							google={google}
+							map={this.state.mapInstance}
+						/>
 					</Portal>
 				)}
 				<Map
@@ -81,6 +98,7 @@ export class MapContainer extends React.Component {
 					style={style}
 					className="wrapper"
 					initialCenter={somewhereInWyoming}
+					onReady={this.onReady}
 				>
 					{this.props.parks.data &&
 						this.props.parks.data.map(park => (
@@ -88,7 +106,6 @@ export class MapContainer extends React.Component {
 								key={park.placeId}
 								placeID={park.placeId}
 								title={park.name}
-								name={'SOMA'}
 								position={{ lat: park.lat, lng: park.lng }}
 								onClick={this.onClickMarker}
 							/>
@@ -111,6 +128,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default GoogleApiWrapper({
 	apiKey: process.env.REACT_APP_GMAP_KEY,
+	LoadingContainer: Spinner,
 })(
 	connect(
 		mapStateToProps,

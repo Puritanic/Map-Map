@@ -19,7 +19,11 @@ export class MapContainer extends React.Component {
 			isListOpen: PropTypes.bool,
 		}),
 		placeID: PropTypes.string,
-		parks: PropTypes.arrayOf(PropTypes.object),
+		parks: PropTypes.shape({
+			place: PropTypes.shape({}),
+			isPlaceLoading: PropTypes.bool,
+			data: PropTypes.arrayOf(PropTypes.object),
+		}),
 		place: PropTypes.shape({}),
 	};
 

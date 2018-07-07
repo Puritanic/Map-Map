@@ -7,6 +7,9 @@ export default keyMirror({
 	PARKS_FETCH_FAILURE: null,
 
 	FETCH_PLACE_SUCCESS: null,
+	PARKS_FILTER_FAILURE: null,
+
+	FILTER_PARKS: null,
 
 	OPEN_LIST: null,
 	CLOSE_LIST: null,

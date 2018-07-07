@@ -31,6 +31,29 @@ export const fetchParks = () => dispatch => {
 		);
 };
 
+export const filerParkData = val => dispatch => {
+	return axios
+		.get(url)
+		.then(res => {
+			const filteredParks = res.data.filter(park => {
+				const parkName = park.name.toLowerCase();
+				const value = val.toLowerCase();
+				return parkName.includes(value);
+			});
+
+			dispatch({
+				type: types.FILTER_PARKS,
+				payload: filteredParks,
+			});
+		})
+		.catch(err =>
+			dispatch({
+				type: types.PARKS_FILTER_FAILURE,
+				payload: err,
+			})
+		);
+};
+
 export const fetchPlaceDetails = (google, map, placeId) => dispatch => {
 	dispatch(startFetchingPlace());
 

@@ -22,6 +22,10 @@ export default (state = initialState, action) => {
 			return { ...state, isPlaceLoading: false, place: action.payload };
 		case types.FETCH_PLACE_FAILURE:
 			return { ...state, isPlaceLoading: false, error: action.payload };
+		case types.FILTER_PARKS:
+			return { ...state, isParkLoading: false, data: action.payload };
+		case types.PARKS_FILTER_FAILURE:
+			return { ...state, isParkLoading: false, error: action.payload };
 		default:
 			return state;
 	}

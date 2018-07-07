@@ -8,7 +8,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export default () =>
 	createStore(
 		combineReducers({
-			books: bookReducer,
+			parks: parksReducer,
 		}),
 		composeEnhancers(applyMiddleware(thunk))
 	);

@@ -1,5 +1,7 @@
 import keyMirror from 'keymirror';
 
 export default keyMirror({
-	GET_PARKS: null,
+	START_FETCHING: null,
+	PARKS_FETCH_SUCCESS: null,
+	PARKS_FETCH_FAILURE: null,
 });

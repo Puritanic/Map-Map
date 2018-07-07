@@ -85,4 +85,9 @@
 	top: 1rem;
 	right: 1rem;
 	cursor: pointer;
+
+	&--left {
+		top: 1rem;
+		left: 1rem;
+	}
 }

@@ -14,21 +14,17 @@
 
 .listItem {
 	display: flex;
-	flex-direction: row;
 	border-bottom: 1px solid #eeeeee;
 	padding: 10px;
 	text-decoration: none;
+	cursor: pointer;
 
-	h1 {
-		flex: 2;
+	&__title {
+		display: inline-block;
+
 		&:hover {
 			color: $highlight;
 		}
-	}
-
-	.rating {
-		text-align: right;
-		flex: 1;
 	}
 
 	&:last-child {

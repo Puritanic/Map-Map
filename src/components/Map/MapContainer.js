@@ -1,27 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 
-import { parks } from '../../fixtures';
 import PlaceDetails from '../Place/PlaceDetails';
 import Portal from '../Portal/Portal';
 import List from '../List/List';
 
+import { fetchParks } from '../../actions/parks';
+
 export class MapContainer extends React.Component {
-	state = {
-		parks,
+	static propTypes = {
+		fetchParks: PropTypes.func,
 		google: PropTypes.shape({}),
+		map: PropTypes.shape({}),
+		placeID: PropTypes.string,
+		parks: PropTypes.arrayOf(PropTypes.object),
+	};
+
+	state = {
 		place: {},
 		isPortalVisible: false,
 		isListVisible: false,
 	};
 
-	static getDerivedStateFromProps(nextProps, prevState) {
-		console.log(nextProps);
-	}
+	componentDidMount = () => {
+		this.props.fetchParks();
+	};
+
+	// static getDerivedStateFromProps(nextProps, prevState) {
+	// 	console.log(nextProps);
+	// }
 
 	onClickMarker = (props, marker, e) => {
-		console.log({ props, marker, e });
 		const { google, map, placeID } = props;
 
 		let service = new google.maps.places.PlacesService(map);
@@ -30,7 +41,6 @@ export class MapContainer extends React.Component {
 				placeId: placeID,
 			},
 			(place, status) => {
-				console.log(place);
 				this.setState({ place, isPortalVisible: true });
 			}
 		);
@@ -40,8 +50,6 @@ export class MapContainer extends React.Component {
 
 	render() {
 		const { google } = this.props;
-
-		console.log(this.state);
 
 		const style = {
 			width: '100%',
@@ -61,7 +69,7 @@ export class MapContainer extends React.Component {
 				)}
 				{this.state.isPortalVisible && (
 					<Portal>
-						<List places={parks} closeCallback={this.closePortal} />
+						<List places={this.props.parks} closeCallback={this.closePortal} />
 					</Portal>
 				)}
 				<Map
@@ -71,22 +79,36 @@ export class MapContainer extends React.Component {
 					className="wrapper"
 					initialCenter={somewhereInWyoming}
 				>
-					{this.state.parks.map(park => (
-						<Marker
-							key={park.placeId}
-							placeID={park.placeId}
-							title={park.name}
-							name={'SOMA'}
-							position={{ lat: park.lat, lng: park.lng }}
-							onClick={this.onClickMarker}
-						/>
-					))}
+					{this.props.parks &&
+						this.props.parks.map(park => (
+							<Marker
+								key={park.placeId}
+								placeID={park.placeId}
+								title={park.name}
+								name={'SOMA'}
+								position={{ lat: park.lat, lng: park.lng }}
+								onClick={this.onClickMarker}
+							/>
+						))}
 				</Map>
 			</React.Fragment>
 		);
 	}
 }
 
+const mapStateToProps = state => ({
+	parks: state.parks.data,
+});
+
+const mapDispatchToProps = dispatch => ({
+	fetchParks: () => dispatch(fetchParks()),
+});
+
 export default GoogleApiWrapper({
 	apiKey: process.env.REACT_APP_GMAP_KEY,
-})(MapContainer);
+})(
+	connect(
+		mapStateToProps,
+		mapDispatchToProps
+	)(MapContainer)
+);

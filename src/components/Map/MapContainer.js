@@ -7,21 +7,24 @@ import PlaceDetails from '../Place/PlaceDetails';
 import Portal from '../Portal/Portal';
 import List from '../List/List';
 
-import { fetchParks } from '../../actions/parks';
+import { fetchParks, fetchPlaceDetails } from '../../actions/parks';
 
 export class MapContainer extends React.Component {
 	static propTypes = {
 		fetchParks: PropTypes.func,
+		fetchPlaceDetails: PropTypes.func,
 		google: PropTypes.shape({}),
 		map: PropTypes.shape({}),
+		list: PropTypes.shape({
+			isListOpen: PropTypes.bool,
+		}),
 		placeID: PropTypes.string,
 		parks: PropTypes.arrayOf(PropTypes.object),
+		place: PropTypes.shape({}),
 	};
 
 	state = {
-		place: {},
 		isPortalVisible: false,
-		isListVisible: false,
 	};
 
 	componentDidMount = () => {
@@ -34,16 +37,8 @@ export class MapContainer extends React.Component {
 
 	onClickMarker = (props, marker, e) => {
 		const { google, map, placeID } = props;
-
-		let service = new google.maps.places.PlacesService(map);
-		return service.getDetails(
-			{
-				placeId: placeID,
-			},
-			(place, status) => {
-				this.setState({ place, isPortalVisible: true });
-			}
-		);
+		this.props.fetchPlaceDetails(google, map, placeID);
+		this.setState({ isPortalVisible: true });
 	};
 
 	closePortal = () => this.setState({ isPortalVisible: false });
@@ -64,12 +59,16 @@ export class MapContainer extends React.Component {
 			<React.Fragment>
 				{this.state.isPortalVisible && (
 					<Portal>
-						<PlaceDetails place={this.state.place} closeCallback={this.closePortal} />
+						<PlaceDetails
+							place={this.props.parks.place}
+							closeCallback={this.closePortal}
+							isLoading={this.props.parks.isPlaceLoading}
+						/>
 					</Portal>
 				)}
-				{this.state.isPortalVisible && (
+				{this.props.list.isListOpen && (
 					<Portal>
-						<List places={this.props.parks} closeCallback={this.closePortal} />
+						<List places={this.props.parks.data} closeCallback={this.closePortal} />
 					</Portal>
 				)}
 				<Map
@@ -79,8 +78,8 @@ export class MapContainer extends React.Component {
 					className="wrapper"
 					initialCenter={somewhereInWyoming}
 				>
-					{this.props.parks &&
-						this.props.parks.map(park => (
+					{this.props.parks.data &&
+						this.props.parks.data.map(park => (
 							<Marker
 								key={park.placeId}
 								placeID={park.placeId}
@@ -97,11 +96,13 @@ export class MapContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	parks: state.parks.data,
+	parks: state.parks,
+	list: state.list,
 });
 
 const mapDispatchToProps = dispatch => ({
 	fetchParks: () => dispatch(fetchParks()),
+	fetchPlaceDetails: (google, map, placeID) => dispatch(fetchPlaceDetails(google, map, placeID)),
 });
 
 export default GoogleApiWrapper({

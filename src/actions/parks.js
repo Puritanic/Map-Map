@@ -1,14 +1,19 @@
 import axios from 'axios';
+
 import types from './types';
 
 const url = 'https://private-310182-parks.apiary-mock.com/parks';
 
-export const startFetching = dispatch => ({
-	type: types.START_FETCHING,
+export const startFetchingPark = () => ({
+	type: types.START_FETCHING_PARK,
+});
+
+export const startFetchingPlace = () => ({
+	type: types.START_FETCHING_PLACE,
 });
 
 export const fetchParks = () => dispatch => {
-	dispatch(startFetching());
+	dispatch(startFetchingPark());
 
 	return axios
 		.get(url)
@@ -24,4 +29,16 @@ export const fetchParks = () => dispatch => {
 				payload: err,
 			})
 		);
+};
+
+export const fetchPlaceDetails = (google, map, placeId) => dispatch => {
+	dispatch(startFetchingPlace());
+
+	let service = new google.maps.places.PlacesService(map);
+	return service.getDetails({ placeId }, (place, status) => {
+		dispatch({
+			type: types.FETCH_PLACE_SUCCESS,
+			payload: place,
+		});
+	});
 };

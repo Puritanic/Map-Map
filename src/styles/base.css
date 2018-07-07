@@ -17,3 +17,10 @@ body {
 	padding: 0;
 	margin: 0;
 }
+
+.centered {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	top: 30%;
+}

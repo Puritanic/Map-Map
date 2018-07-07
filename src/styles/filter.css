@@ -1,0 +1,13 @@
+.filter {
+	height: 100%;
+	width: 25%;
+
+	& input {
+		font: inherit;
+		height: 60%;
+		width: 100%;
+		padding: 0.5rem 2rem;
+		color: var(--font-color-mid);
+		font-size: 1.5rem;
+	}
+}

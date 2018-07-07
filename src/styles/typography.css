@@ -13,14 +13,14 @@
 		line-height: 130%;
 		word-spacing: 0.3rem;
 		margin: 0;
-		color: var(--font-color-light);
+		color: var(--font-color-dark);
 
 		&:after {
 			content: ' ';
 			height: 1px;
 			width: 80%;
 			margin-top: 1rem;
-			background: var(--font-color-light);
+			background: var(--font-color-dark);
 		}
 
 		@include respond(tab-port) {
@@ -72,7 +72,7 @@
 .paragraph {
 	line-height: 145%;
 	width: 70%;
-	margin-left: 15%;
+	margin-left: 5%;
 	text-align: center;
 	font-size: 2rem;
 
@@ -83,4 +83,9 @@
 	@include respond(tab-port) {
 		font-size: 1.6rem;
 	}
+}
+
+.link {
+	font-size: 1rem;
+	text-decoration: none;
 }

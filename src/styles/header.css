@@ -1,25 +1,47 @@
-.topbar {
+.nav {
 	position: fixed;
 	z-index: 10;
 	top: 0;
 	left: 0;
-	background: #48b5e9;
+	background: var(--color-secondary);
 	width: 100%;
 	padding: 0 25px;
 	height: var(--height);
 	line-height: var(--height);
 	color: #fff;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 
-	a {
+	&__brand {
 		text-transform: uppercase;
 		text-decoration: none;
 		letter-spacing: 1px;
+		font-size: 2rem;
+		background: transparent;
+		box-shadow: 0 0 5rem #000;
+		background: rgba(0, 0, 0, 0.35);
+		padding: 0 2rem;
+	}
 
-		line-height: 40px;
-		h1 {
-			font-size: 28px;
+	& .nav__link {
+		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 1.2rem;
+		color: var(--text-color-light);
+		border-bottom: 2px solid transparent;
+		padding-bottom: 0.5rem;
+		transition: all 0.3s;
+
+		&:not(:first-child) {
+			margin-left: 2rem;
+		}
+
+		&:hover {
+			border-bottom: 2px solid var(--color-primary);
 		}
 	}
+
 	section {
 		position: absolute;
 		top: 0px;

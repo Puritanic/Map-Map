@@ -3,20 +3,17 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 
 import 'font-awesome/css/font-awesome.css';
 
-import Home from './Home/Home';
+import Header from './Header/Header';
 import MapContainer from './Map/MapContainer';
-
-const Favorites = () => <h1>Favorites</h1>;
 
 class App extends Component {
 	render() {
 		return (
 			<Router className="App">
 				<React.Fragment>
-					<Home />
+					<Header />
 					<Switch>
-						<Route path="/map" component={MapContainer} />
-						<Route path="/favorites" component={Favorites} />
+						<Route path="/" component={MapContainer} />
 						<Redirect from="*" to="/" />
 					</Switch>
 				</React.Fragment>

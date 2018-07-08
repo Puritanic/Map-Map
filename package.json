@@ -16,6 +16,7 @@
 		"postcss-nested": "^3.0.0",
 		"postcss-preset-env": "^5.2.1",
 		"react": "^16.4.1",
+		"react-aria-modal": "^2.12.2",
 		"react-dom": "^16.4.1",
 		"react-redux": "^5.0.7",
 		"react-router": "^4.3.1",

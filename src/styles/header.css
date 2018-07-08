@@ -22,6 +22,11 @@
 		box-shadow: 0 0 5rem #000;
 		background: rgba(0, 0, 0, 0.35);
 		padding: 0 2rem;
+
+		&:focused,
+		&:active {
+			background: rgba(0, 0, 0, 0.15);
+		}
 	}
 
 	& .nav__link {

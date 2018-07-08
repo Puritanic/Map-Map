@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+
 import PropTypes from 'prop-types';
 import { GridLoader } from 'react-spinners';
 
@@ -6,55 +7,94 @@ import CloseIcon from '../Common/CloseIcon';
 import PlaceReview from './PlaceReview';
 import Photo from '../Common/Photo';
 
-const PlaceDetails = ({ place, closeCallback, isLoading }) => {
-	const averageRating = Math.round(place.rating);
-	let rating = '★'.repeat(averageRating);
+class PlaceDetails extends Component {
+	componentDidMount = () => {
+		document.addEventListener('keydown', this.closePortalOnEsc);
+	};
 
-	return (
-		<div className="place">
-			{isLoading ? (
-				<div className="centered">
-					<GridLoader color="#f44336" margin="5px" size={50} />
-				</div>
-			) : (
-				<div className="place__content">
-					<div onClick={closeCallback}>
-						<CloseIcon size={25} styles="closeIco" />
+	componentWillUnmount = () => {
+		document.removeEventListener('keydown', this.closePortalOnEsc);
+	};
+
+	closePortalOnEnter = e => {
+		if (e.which === 13) {
+			this.props.closeCallback();
+		}
+	};
+
+	closePortalOnEsc = e => {
+		if (e.which === 27) {
+			this.props.closeCallback();
+		}
+	};
+
+	render() {
+		const { place, closeCallback, isLoading } = this.props;
+		const averageRating = Math.round(place.rating);
+		let rating = '★'.repeat(averageRating);
+		const ariaLabel = `Details and reviews for ${place.name}`;
+
+		return (
+			<section className="place" role="Article" aria-label={ariaLabel} id="place">
+				{isLoading ? (
+					<div className="centered">
+						<GridLoader color="#f44336" margin="5px" size={50} />
 					</div>
-					<div className="place__location">
-						<h1 className="heading heading--secondary">{place.name}</h1>
-						<span className="heading heading--tertiary">{place.formatted_address}</span>
-						<span className="place__review" title={`Rating: ${place.rating}`}>
-							Rating: {rating}
-						</span>
-						<a href={place.website} className="heading link" target="_blank">
-							{place.website}
+				) : (
+					<div className="place__content">
+						<a
+							className="closeBtn"
+							onClick={closeCallback}
+							onKeyDown={this.closePortalOnEnter}
+							aria-label="Close Modal"
+							id="closeListBtn"
+							tabIndex="0"
+						>
+							<span className="h-hide-visually">Close</span>
+							<CloseIcon
+								size={25}
+								styles="closeIco"
+								aria-label="Close Modal"
+								aria-labelledby="close-modal"
+							/>
 						</a>
+						<div className="place__location">
+							<h1 className="heading heading--secondary">{place.name}</h1>
+							<span className="heading heading--tertiary">
+								{place.formatted_address}
+							</span>
+							<span className="place__review" title={`Rating: ${place.rating}`}>
+								Rating: {rating}
+							</span>
+							<a href={place.website} className="heading link" target="_blank">
+								{place.website}
+							</a>
+						</div>
+						<div className="gallery">
+							{place.photos &&
+								place.photos.map(photo => (
+									<Photo
+										photo={photo}
+										name={place.name}
+										key={photo.height * Math.random()}
+									/>
+								))}
+						</div>
+						{place.reviews && place.reviews.length > 0 ? (
+							place.reviews.map(review => (
+								<PlaceReview key={review.time} review={review} />
+							))
+						) : (
+							<p className="paragraph text-center">
+								Camp doesn&apos;t have any reviews yet.
+							</p>
+						)}
 					</div>
-					<div className="gallery">
-						{place.photos &&
-							place.photos.map(photo => (
-								<Photo
-									photo={photo}
-									name={place.name}
-									key={photo.height * Math.random()}
-								/>
-							))}
-					</div>
-					{place.reviews && place.reviews.length > 0 ? (
-						place.reviews.map(review => (
-							<PlaceReview key={review.time} review={review} />
-						))
-					) : (
-						<p className="paragraph text-center">
-							Camp doesn&apos;t have any reviews yet.
-						</p>
-					)}
-				</div>
-			)}
-		</div>
-	);
-};
+				)}
+			</section>
+		);
+	}
+}
 
 PlaceDetails.propTypes = {
 	place: PropTypes.object,

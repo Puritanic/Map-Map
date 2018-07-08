@@ -6,7 +6,7 @@ const PlaceReview = ({ review }) => {
 	let rating = '★'.repeat(averageRating);
 
 	return (
-		<div className="review">
+		<div className="review" tabIndex="1" role="Article">
 			<div className="author__info">
 				<img
 					src={review.profile_photo_url}
@@ -15,7 +15,6 @@ const PlaceReview = ({ review }) => {
 				/>
 				<span className="review__author"> {review.author_name}</span>
 				<span className="review__rating" title={`Rating: ${review.rating}`}>
-					{' '}
 					{rating}
 				</span>
 			</div>

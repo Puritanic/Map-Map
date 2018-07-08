@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { filerParkData } from '../../actions/parks';
 
-class Filter extends React.Component {
+class Filter extends Component {
 	static propTypes = {
 		filterData: PropTypes.func,
 		placeholder: PropTypes.string,
@@ -21,12 +21,14 @@ class Filter extends React.Component {
 
 	render() {
 		return (
-			<div className="filter">
+			<div className="filter" role="searchbox">
 				<input
 					type="text"
 					value={this.state.inputVal}
 					placeholder={this.props.placeholder}
 					onChange={this.onChange}
+					aria-label={this.props.placeholder}
+					aria-required="false"
 				/>
 			</div>
 		);

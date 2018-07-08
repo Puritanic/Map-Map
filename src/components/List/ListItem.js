@@ -7,10 +7,21 @@ const ListItem = props => {
 		return handleClick(place.placeId);
 	};
 
+	const fetchDetailsOnKeydown = e => {
+		if (e.which === 13) {
+			return handleClick(place.placeId);
+		}
+	};
+
 	return (
-		<div className="listItem" onClick={fetchDetails}>
-			<h1 className={'listItem__title'}>{place.name}</h1>
-		</div>
+		<li
+			className="listItem"
+			onClick={fetchDetails}
+			onKeyDown={fetchDetailsOnKeydown}
+			tabIndex="1"
+		>
+			<span className={'listItem__title'}>{place.name}</span>
+		</li>
 	);
 };
 

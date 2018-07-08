@@ -81,14 +81,34 @@
 	}
 }
 
-.closeIco {
+.closeBtn {
+	border: none;
+	display: inline-block;
 	position: absolute;
+	width: 4rem;
+	height: 4rem;
 	top: 1rem;
 	right: 1rem;
+	cursor: pointer;
+}
+
+.closeIco {
+	position: absolute;
+	top: 0.7rem;
+	right: 0.7rem;
 	cursor: pointer;
 
 	&--left {
 		top: 1rem;
 		left: 1rem;
+	}
+
+	&:hover {
+		background: #cbddfb;
+	}
+
+	&:focus {
+		outline: 0;
+		box-shadow: 0 0 4px currentColor;
 	}
 }

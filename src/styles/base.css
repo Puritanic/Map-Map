@@ -41,3 +41,15 @@ body {
 	width: 100%;
 	text-align: center;
 }
+
+.h-hide-visually {
+	visibility: hidden;
+}
+
+.h-lock-scroll {
+	overflow: hidden !important;
+}
+
+.map {
+	margin-top: var(--height);
+}

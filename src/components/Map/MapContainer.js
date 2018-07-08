@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
@@ -14,7 +14,7 @@ const Spinner = () => (
 	<GridLoader className="centered--abs " color="#f44336" margin="5px" size={50} />
 );
 
-export class MapContainer extends React.Component {
+export class MapContainer extends Component {
 	static propTypes = {
 		fetchParks: PropTypes.func,
 		fetchPlaceDetails: PropTypes.func,
@@ -41,10 +41,6 @@ export class MapContainer extends React.Component {
 	componentDidMount = () => {
 		this.props.fetchParks();
 	};
-
-	// static getDerivedStateFromProps(nextProps, prevState) {
-	// 	console.log(nextProps);
-	// }
 
 	onClickMarker = (props, marker, e) => {
 		const { google, map, placeID } = props;
@@ -73,13 +69,15 @@ export class MapContainer extends React.Component {
 		};
 
 		return (
-			<React.Fragment>
+			<main className="map">
 				{this.state.isPortalVisible && (
 					<Portal>
 						<PlaceDetails
 							place={this.props.parks.place}
 							closeCallback={this.closePortal}
 							isLoading={this.props.parks.isPlaceLoading}
+							aria-modal="true"
+							tabIndex="-1"
 						/>
 					</Portal>
 				)}
@@ -91,6 +89,9 @@ export class MapContainer extends React.Component {
 							closeCallback={this.closePortal}
 							google={google}
 							map={this.state.mapInstance}
+							aria-modal="true"
+							aria-label="Map with camps"
+							tabIndex="-1"
 						/>
 					</Portal>
 				)}
@@ -111,6 +112,7 @@ export class MapContainer extends React.Component {
 								title={park.name}
 								position={{ lat: park.lat, lng: park.lng }}
 								onClick={this.onClickMarker}
+								aria-label="Open Place Details Modal"
 								animation={
 									this.state.selectedPlace === park.placeId
 										? google.maps.Animation.BOUNCE
@@ -119,7 +121,7 @@ export class MapContainer extends React.Component {
 							/>
 						))}
 				</Map>
-			</React.Fragment>
+			</main>
 		);
 	}
 }

@@ -10,8 +10,6 @@ import configureStore from './store/store';
 
 const store = configureStore();
 
-require('dotenv').config();
-
 const Root = () => (
 	<Provider store={store}>
 		<App />

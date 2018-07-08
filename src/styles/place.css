@@ -8,7 +8,7 @@
 	bottom: 0;
 	background: #fff;
 	padding: 3rem;
-	overflow-y: scroll;
+	overflow-y: auto;
 	padding-bottom: 7rem;
 
 	& .place__review {
@@ -42,6 +42,7 @@
 .review {
 	font-size: 1.3rem;
 	padding: 2rem;
+	border-bottom: 1px solid var(--font-color-mid);
 
 	&__author_photo {
 		height: 4rem;

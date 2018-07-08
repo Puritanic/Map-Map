@@ -41,10 +41,15 @@ const PlaceDetails = ({ place, closeCallback, isLoading }) => {
 								/>
 							))}
 					</div>
-					{place.reviews &&
+					{place.reviews && place.reviews.length > 0 ? (
 						place.reviews.map(review => (
 							<PlaceReview key={review.time} review={review} />
-						))}
+						))
+					) : (
+						<p className="paragraph text-center">
+							Camp doesn&apos;t have any reviews yet.
+						</p>
+					)}
 				</div>
 			)}
 		</div>

@@ -40,6 +40,8 @@ export default class Portal extends Component {
 				focusDialog={true}
 				getApplicationNode={this.getApplicationNode}
 				underlayStyle={{ paddingTop: '2em' }}
+				includeDefaultStyles={!children.props.isList}
+				focusTrapPaused={children.props.isList}
 			>
 				{children}
 			</AriaModal>,

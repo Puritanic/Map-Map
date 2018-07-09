@@ -30,9 +30,19 @@ class PlaceDetails extends Component {
 
 	render() {
 		const { place, closeCallback, isLoading } = this.props;
-		const averageRating = Math.round(place.rating);
-		let rating = '★'.repeat(averageRating);
-		const ariaLabel = `Details and reviews for ${place.name}`;
+		let ariaLabel = `Details and reviews for campground`;
+
+		let averageRating;
+		let rating = 'N/A';
+
+		if (place && place.rating) {
+			averageRating = Math.round(place.rating);
+			rating = '★'.repeat(averageRating);
+		}
+
+		if (place && place.name) {
+			ariaLabel = `Details and reviews for ${place.name}`;
+		}
 
 		return (
 			<section className="place" role="Article" aria-label={ariaLabel} id="place">
@@ -58,36 +68,49 @@ class PlaceDetails extends Component {
 								aria-labelledby="close-modal"
 							/>
 						</a>
-						<div className="place__location">
-							<h1 className="heading heading--secondary">{place.name}</h1>
-							<span className="heading heading--tertiary">
-								{place.formatted_address}
-							</span>
-							<span className="place__review" title={`Rating: ${place.rating}`}>
-								Rating: {rating}
-							</span>
-							<a href={place.website} className="heading link" target="_blank">
-								{place.website}
-							</a>
-						</div>
-						<div className="gallery">
-							{place.photos &&
-								place.photos.map(photo => (
-									<Photo
-										photo={photo}
-										name={place.name}
-										key={photo.height * Math.random()}
-									/>
-								))}
-						</div>
-						{place.reviews && place.reviews.length > 0 ? (
-							place.reviews.map(review => (
-								<PlaceReview key={review.time} review={review} />
-							))
+						{place ? (
+							<React.Fragment>
+								<div className="place__location">
+									<h1 className="heading heading--secondary">{place.name}</h1>
+									<span className="heading heading--tertiary">
+										{place.formatted_address}
+									</span>
+									<span
+										className="place__review"
+										title={`Rating: ${place.rating}`}
+									>
+										Rating: {rating}
+									</span>
+									<a
+										href={place.website}
+										className="heading link"
+										target="_blank"
+									>
+										{place.website}
+									</a>
+								</div>
+								<div className="gallery">
+									{place.photos &&
+										place.photos.map(photo => (
+											<Photo
+												photo={photo}
+												name={place.name}
+												key={photo.height * Math.random()}
+											/>
+										))}
+								</div>
+								{place.reviews && place.reviews.length > 0 ? (
+									place.reviews.map(review => (
+										<PlaceReview key={review.time} review={review} />
+									))
+								) : (
+									<p className="paragraph text-center">
+										Camp doesn&apos;t have any reviews yet.
+									</p>
+								)}
+							</React.Fragment>
 						) : (
-							<p className="paragraph text-center">
-								Camp doesn&apos;t have any reviews yet.
-							</p>
+							<p className="centered paragraph">Error while fetching</p>
 						)}
 					</div>
 				)}

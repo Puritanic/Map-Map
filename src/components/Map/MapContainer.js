@@ -92,6 +92,7 @@ export class MapContainer extends Component {
 							aria-modal="true"
 							aria-label="Map with camps"
 							tabIndex="-1"
+							isList={true}
 						/>
 					</Portal>
 				)}

@@ -25,9 +25,6 @@ export class Header extends Component {
 					>
 						My favorite parks
 					</NavLink>
-					<NavLink to="/about" role="link" className="nav__link">
-						About App
-					</NavLink>
 				</div>
 			</nav>
 		);

@@ -13,19 +13,33 @@
 	justify-content: space-between;
 	align-items: center;
 
+	@media screen and (max-width: 630px) {
+		& .links {
+			display: flex;
+			flex-direction: column;
+			max-height: 100%;
+		}
+	}
+
 	&__brand {
 		text-transform: uppercase;
+
 		text-decoration: none;
 		letter-spacing: 1px;
 		font-size: 2rem;
 		background: transparent;
-		box-shadow: 0 0 5rem #000;
-		background: rgba(0, 0, 0, 0.35);
-		padding: 0 2rem;
 
 		&:focused,
 		&:active {
 			background: rgba(0, 0, 0, 0.15);
+		}
+
+		@media screen and (max-width: 900px) {
+			font-size: 1.5rem;
+		}
+
+		@media screen and (max-width: 540px) {
+			display: none;
 		}
 	}
 
@@ -45,11 +59,19 @@
 		&:hover {
 			border-bottom: 2px solid var(--color-primary);
 		}
+
+		@media screen and (max-width: 630px) {
+			text-align: center;
+			font-size: 1rem;
+			padding: 0;
+			margin: 0;
+			line-height: 150%;
+		}
 	}
 
-	section {
+	/* section {
 		position: absolute;
 		top: 0px;
 		right: 25px;
-	}
+	} */
 }

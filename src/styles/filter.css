@@ -10,4 +10,13 @@
 		color: var(--font-color-mid);
 		font-size: 1.5rem;
 	}
+
+	@media screen and (max-width: 900px) {
+		height: auto;
+		width: 25%;
+
+		& input {
+			min-width: 200px;
+		}
+	}
 }

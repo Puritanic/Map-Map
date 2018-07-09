@@ -110,7 +110,9 @@ class PlaceDetails extends Component {
 								)}
 							</React.Fragment>
 						) : (
-							<p className="centered paragraph">Error while fetching</p>
+							<p className="centered paragraph">
+								Error while fetching location data.
+							</p>
 						)}
 					</div>
 				)}

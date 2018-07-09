@@ -10,6 +10,10 @@
 	padding: 3rem;
 	overflow-y: auto;
 	padding-bottom: 7rem;
+
+	@media screen and (max-width: 600px) {
+		width: 50%;
+	}
 }
 
 .listItem {
@@ -30,5 +34,11 @@
 
 	&:last-child {
 		border-bottom: none;
+	}
+
+	@media screen and (max-width: 600px) {
+		&__title {
+			font-size: 1.1rem;
+		}
 	}
 }

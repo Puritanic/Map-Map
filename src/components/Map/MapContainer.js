@@ -11,7 +11,9 @@ import List from '../List/List';
 import { fetchParks, fetchPlaceDetails } from '../../actions/parks';
 
 const Spinner = () => (
-	<GridLoader className="centered--abs " color="#f44336" margin="5px" size={50} />
+	<div className="spinner">
+		<GridLoader color="#f44336" margin="5px" size={50} />
+	</div>
 );
 
 export class MapContainer extends Component {
@@ -96,6 +98,7 @@ export class MapContainer extends Component {
 						/>
 					</Portal>
 				)}
+
 				<Map
 					google={google}
 					zoom={6}

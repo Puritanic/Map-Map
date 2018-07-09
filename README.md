@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-You can visit live version of project here: TBD, but if you wish to run it locally you can do it with this steps:
+You can visit live version of project [here](https://whispering-wildwood-68820.herokuapp.com/), but if you wish to run it locally you can do it with this steps:
 
 ```shell
  git clone https://github.com/Puritanic/Map-Map.git

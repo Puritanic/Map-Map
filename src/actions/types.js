@@ -13,4 +13,6 @@ export default keyMirror({
 
 	OPEN_LIST: null,
 	CLOSE_LIST: null,
+
+	PARKS_OFFLINE: null,
 });

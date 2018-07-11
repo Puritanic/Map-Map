@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 import 'font-awesome/css/font-awesome.css';
 
 import Header from './Header/Header';
 import MapContainer from './Map/MapContainer';
+import ErrorPage from './ErrorPage';
 
 class App extends Component {
 	render() {
@@ -13,7 +15,10 @@ class App extends Component {
 				<React.Fragment>
 					<Header />
 					<Switch>
-						<Route path="/" component={MapContainer} />
+						<Route
+							path="/"
+							component={!this.props.offline ? MapContainer : ErrorPage}
+						/>
 						<Redirect from="*" to="/" />
 					</Switch>
 				</React.Fragment>
@@ -22,4 +27,8 @@ class App extends Component {
 	}
 }
 
-export default App;
+const mapStateToProps = (state, ownProps) => ({
+	offline: state.parks.offline,
+});
+
+export default connect(mapStateToProps)(App);

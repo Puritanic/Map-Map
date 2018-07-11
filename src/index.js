@@ -4,15 +4,18 @@ import { Provider } from 'react-redux';
 
 import './index.css';
 import App from './components/App';
+import ErrorBoundary from './components/ErrorBoundary';
 import registerServiceWorker from './registerServiceWorker';
 
 import configureStore from './store/store';
 
-const store = configureStore();
+export const store = configureStore();
 
 const Root = () => (
 	<Provider store={store}>
-		<App />
+		<ErrorBoundary>
+			<App />
+		</ErrorBoundary>
 	</Provider>
 );
 

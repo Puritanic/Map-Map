@@ -4,17 +4,33 @@ import { connect } from 'react-redux';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
 import { GridLoader } from 'react-spinners';
 
+import { store } from '../../index';
 import PlaceDetails from '../Place/PlaceDetails';
 import Portal from '../Portal/Portal';
 import List from '../List/List';
 
 import { fetchParks, fetchPlaceDetails } from '../../actions/parks';
 
-const Spinner = () => (
-	<div className="spinner">
-		<GridLoader color="#f44336" margin="5px" size={50} />
-	</div>
-);
+const Spinner = () => {
+	const timeout = () =>
+		setTimeout(() => {
+			if (window.google && window.google.maps) {
+				console.info('Google Maps API Loaded.');
+			} else {
+				console.warn('Google Maps API fetch failed.');
+				// Setting timeout here so that I can resolve state of the navigator
+				// temp solution, google-react-maps lib can't handle failing google maps xhr
+				store.dispatch({ type: 'PARKS_OFFLINE' });
+			}
+		}, 8000);
+
+	return (
+		<div className="spinner">
+			{timeout()}
+			<GridLoader color="#f44336" margin="5px" size={50} />
+		</div>
+	);
+};
 
 export class MapContainer extends Component {
 	static propTypes = {
@@ -44,6 +60,10 @@ export class MapContainer extends Component {
 		this.props.fetchParks();
 	};
 
+	static getDerivedPropsFromState(nextProps, prevState) {
+		console.log(nextProps);
+	}
+
 	onClickMarker = (props, marker, e) => {
 		const { google, map, placeID } = props;
 		this.props.fetchPlaceDetails(google, map, placeID);
@@ -54,9 +74,7 @@ export class MapContainer extends Component {
 
 	openPortal = placeID => this.setState({ isPortalVisible: true, selectedPlace: placeID });
 
-	onReady = (mapProps, map) => {
-		this.setState({ mapInstance: map });
-	};
+	onReady = (mapProps, map) => this.setState({ mapInstance: map });
 
 	render() {
 		const { google } = this.props;
@@ -107,6 +125,7 @@ export class MapContainer extends Component {
 					initialCenter={somewhereInWyoming}
 					onReady={this.onReady}
 					role="application"
+					ref={node => (this.mapRef = node)}
 				>
 					{this.props.parks.data &&
 						this.props.parks.data.map(park => (

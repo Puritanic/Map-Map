@@ -6,6 +6,7 @@ const initialState = {
 	isPlaceLoading: false,
 	isParkLoading: false,
 	error: null,
+	offline: false,
 };
 
 export default (state = initialState, action) => {
@@ -26,6 +27,8 @@ export default (state = initialState, action) => {
 			return { ...state, isParkLoading: false, data: action.payload };
 		case types.PARKS_FILTER_FAILURE:
 			return { ...state, isParkLoading: false, error: action.payload };
+		case types.PARKS_OFFLINE:
+			return { ...state, isParkLoading: false, offline: true };
 		default:
 			return state;
 	}

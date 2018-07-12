@@ -76,6 +76,12 @@ export class MapContainer extends Component {
 
 	onReady = (mapProps, map) => this.setState({ mapInstance: map });
 
+	displayError = () =>
+		setTimeout(() => {
+			this.props.clearErrors();
+			return null;
+		}, 11000);
+
 	render() {
 		const { google } = this.props;
 		const style = {
@@ -90,6 +96,14 @@ export class MapContainer extends Component {
 
 		return (
 			<main className="map">
+				{this.props.parks.error ? (
+					<div style={{ textAlign: 'center' }}>
+						<h1>
+							There was a problem with fetching NatParks API, please try again.{' '}
+							<span style={{ visibility: 'hidden' }}>({this.displayError()})</span>
+						</h1>
+					</div>
+				) : null}
 				{this.state.isPortalVisible && (
 					<Portal>
 						<PlaceDetails
@@ -157,6 +171,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	fetchParks: () => dispatch(fetchParks()),
 	fetchPlaceDetails: (google, map, placeID) => dispatch(fetchPlaceDetails(google, map, placeID)),
+	clearErrors: () => dispatch({ type: 'CLEAR_ERRORS' }),
 });
 
 export default GoogleApiWrapper({

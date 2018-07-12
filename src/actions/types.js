@@ -15,4 +15,5 @@ export default keyMirror({
 	CLOSE_LIST: null,
 
 	PARKS_OFFLINE: null,
+	CLEAR_ERRORS: null,
 });

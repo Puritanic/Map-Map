@@ -27,6 +27,8 @@ export default (state = initialState, action) => {
 			return { ...state, isParkLoading: false, data: action.payload };
 		case types.PARKS_FILTER_FAILURE:
 			return { ...state, isParkLoading: false, error: action.payload };
+		case types.CLEAR_ERRORS:
+			return { ...state, error: null };
 		case types.PARKS_OFFLINE:
 			return { ...state, isParkLoading: false, offline: true };
 		default:

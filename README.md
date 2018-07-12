@@ -13,6 +13,9 @@ You can visit live version of project [here](https://whispering-wildwood-68820.h
  yarn run start
 ```
 
+If you want to run production version of the app run `yarn run build`.
+You can start a server from inside of `build` folder with the local server ( with serve package or python3 -m http.server)
+
 For installing packages you can use `npm` if you prefer it, just run `npm install` once you are in project dir.
 
 You should be able to see project in you browser now.
